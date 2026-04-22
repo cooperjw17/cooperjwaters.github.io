@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cooper J. Waters</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #1B2B4B;
+      --navy-mid:  #243756;
+      --navy-light:#2E4A72;
+      --gold:      #C9A84C;
+      --gold-light:#E0C070;
+      --bg:        #F4F6F9;
+      --bg-white:  #FFFFFF;
+      --text:      #1a1a2e;
+      --text-mid:  #3d4a63;
+      --text-light:#7a8499;
+      --border:    #DDE3ED;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ──────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+    }
+    .nav-logo {
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ─────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, var(--navy-light) 100%);
+      display: flex; align-items: center; justify-content: center;
+      padding: 100px 48px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-inner {
+      display: flex; align-items: center; gap: 72px;
+      max-width: 1000px; width: 100%;
+      position: relative; z-index: 1;
+    }
+    .hero-photo-wrap {
+      flex-shrink: 0;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      border: 4px solid var(--gold);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+      overflow: hidden;
+      background: var(--navy-light);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-photo-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+    }
+    .hero-photo-placeholder {
+      font-size: 3.5rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 0.05em;
+    }
+    .hero-text { flex: 1; }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(201,168,76,0.18);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 20px;
+      margin-bottom: 18px;
+    }
+    .hero-name {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 700; color: #fff;
+      line-height: 1.15; margin-bottom: 12px;
+    }
+    .hero-subtitle {
+      font-size: 1.05rem; color: rgba(255,255,255,0.72);
+      font-weight: 400; margin-bottom: 28px;
+      max-width: 480px; line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 26px; border-radius: 6px;
+      font-size: 0.88rem; font-weight: 600;
+      text-decoration: none; transition: all 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .btn-gold {
+      background: var(--gold); color: var(--navy);
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,168,76,0.35); }
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.4);
+      color: #fff; background: transparent;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
+
+    /* ── SECTION SHELL ────────────────────────────────────────── */
+    section { padding: 88px 48px; }
+    section:nth-child(even) { background: var(--bg-white); }
+    .section-inner { max-width: 960px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: 2rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 48px;
+      padding-bottom: 16px;
+      border-bottom: 3px solid var(--gold);
+      display: inline-block;
+    }
+
+    /* ── ABOUT ────────────────────────────────────────────────── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .about-text p {
+      color: var(--text-mid); font-size: 0.97rem;
+      line-height: 1.8; margin-bottom: 16px;
+    }
+    .about-stats { display: flex; flex-direction: column; gap: 20px; }
+    .stat-card {
+      background: var(--bg);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 18px 22px;
+    }
+    .stat-card .stat-value {
+      font-size: 1.6rem; font-weight: 700; color: var(--navy);
+    }
+    .stat-card .stat-label {
+      font-size: 0.82rem; color: var(--text-light); font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+
+    /* ── SKILLS ───────────────────────────────────────────────── */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .skill-group {
+      background: var(--bg);
+      border-radius: 10px; padding: 24px;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .skill-group:hover { box-shadow: 0 6px 24px rgba(27,43,75,0.1); transform: translateY(-2px); }
+    .skill-group h3 {
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 14px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag {
+      background: var(--navy);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.8rem; font-weight: 500;
+      padding: 5px 12px; border-radius: 4px;
+    }
+
+    /* ── EXPERIENCE ───────────────────────────────────────────── */
+    .exp-list { display: flex; flex-direction: column; gap: 32px; }
+    .exp-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 28px 32px;
+      position: relative;
+      border-left: 4px solid var(--navy);
+      transition: box-shadow 0.2s;
+    }
+    .exp-card:hover { box-shadow: 0 6px 24px rgba(27,43,75,0.1); }
+    .exp-card.gold-border { border-left-color: var(--gold); }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+    .exp-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); }
+    .exp-company { font-size: 0.9rem; color: var(--text-mid); font-weight: 500; margin-top: 2px; }
+    .exp-date {
+      font-size: 0.8rem; color: var(--text-light);
+      background: var(--bg); padding: 4px 12px;
+      border-radius: 20px; font-weight: 500; white-space: nowrap;
+    }
+    .exp-bullets { list-style: none; margin-top: 14px; }
+    .exp-bullets li {
+      font-size: 0.91rem; color: var(--text-mid);
+      padding: 4px 0 4px 18px; position: relative; line-height: 1.6;
+    }
+    .exp-bullets li::before {
+      content: "▸"; position: absolute; left: 0;
+      color: var(--gold); font-size: 0.75rem; top: 6px;
+    }
+    .exp-type {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 2px 10px;
+      border-radius: 20px; margin-bottom: 10px;
+    }
+    .type-project { background: rgba(201,168,76,0.12); color: #a07a20; }
+    .type-work    { background: rgba(27,43,75,0.08); color: var(--navy-light); }
+
+    /* ── CONTACT ──────────────────────────────────────────────── */
+    #contact { background: var(--navy); }
+    #contact .section-label { color: var(--gold-light); }
+    #contact .section-title { color: #fff; border-bottom-color: var(--gold); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .contact-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px; padding: 28px;
+      text-align: center; transition: all 0.2s;
+      text-decoration: none; display: block;
+    }
+    .contact-card:hover {
+      background: rgba(201,168,76,0.15);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .contact-icon { font-size: 2rem; margin-bottom: 10px; }
+    .contact-card h3 { color: #fff; font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+    .contact-card p { color: rgba(255,255,255,0.65); font-size: 0.88rem; }
+
+    /* ── FOOTER ───────────────────────────────────────────────── */
+    footer {
+      background: #111c2e;
+      text-align: center; padding: 24px;
+      color: rgba(255,255,255,0.35); font-size: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+      section { padding: 60px 20px; }
+      .hero-inner { flex-direction: column; text-align: center; gap: 36px; }
+      .hero-actions { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Cooper <span>Waters</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-photo-wrap">
+      <img src="Headshot.JPG" alt="Cooper J. Waters"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+      <div class="hero-photo-placeholder" style="display:none; align-items:center; justify-content:center;">CW</div>
+    </div>
+    <div class="hero-text">
+      <div class="hero-tag">Open To Work</div>
+      <h1 class="hero-name">Cooper J. Waters</h1>
+      <p class="hero-subtitle">
+        Cybersecurity & IT student at Penn State University — focused on building practical technical skills, exploring AI workflow integration, and delivering real value in technology roles.
+      </p>
+      <div class="hero-actions">
+        <a href="Waters_Resume.pdf" download class="btn btn-gold">
+          ⬇ Download Resume
+        </a>
+        <a href="https://www.linkedin.com/in/cooperjwaters" target="_blank" class="btn btn-outline">
+          LinkedIn Profile
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <p class="section-label">Who I Am</p>
+    <h2 class="section-title">About Me</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a junior at Penn State University Park pursuing a B.S. in Cybersecurity Analytics and Operations, with a minor in Information Sciences and Technology. My coursework has given me a strong foundation in networking, systems security, data management, and risk analysis — and I've backed it up with hands-on lab work using tools like Wireshark, Cisco Packet Tracer, Python, and Linux.
+        </p>
+        <p>
+          Beyond the technical side, I've developed a genuine interest in AI workflows and implementation — not just as a user, but as someone thinking about how organizations can adopt AI tools in ways that actually improve how people work. I use AI systems daily, and I'm increasingly focused on prompt engineering, agentic tools, and how intelligent automation changes the way teams operate.
+        </p>
+        <p>
+          I'm local to Downingtown, PA and actively looking for internship opportunities in IT, cybersecurity, and technology roles where I can contribute from day one and keep building real, applicable skills before I graduate in May 2027.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-value">3.5</div>
+          <div class="stat-label">GPA &mdash; Dean's List FA 2023, SP 2024</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">B.S. Cybersecurity</div>
+          <div class="stat-label">Analytics & Operations &mdash; Penn State University Park</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">IST Minor</div>
+          <div class="stat-label">Information Sciences & Technology</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">May 2027</div>
+          <div class="stat-label">Expected Graduation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <p class="section-label">What I Work With</p>
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Programming & Data</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">Linux</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Systems & Security</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Wireshark</span>
+          <span class="skill-tag">Cisco Packet Tracer</span>
+          <span class="skill-tag">Networking Fundamentals</span>
+          <span class="skill-tag">Risk Assessment</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>AI & Automation</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">AI Fluency</span>
+          <span class="skill-tag">AI Workflow Integration</span>
+          <span class="skill-tag">Prompt Engineering</span>
+          <span class="skill-tag">Agentic AI</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Productivity & Tools</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Microsoft 365</span>
+          <span class="skill-tag">Technical Documentation</span>
+          <span class="skill-tag">IT Asset Management</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <p class="section-label">Background</p>
+    <h2 class="section-title">Projects &amp; Experience</h2>
+    <div class="exp-list">
+
+      <div class="exp-card gold-border">
+        <span class="exp-type type-project">Project</span>
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Research — 3D Printing &amp; Modern Conflict</div>
+            <div class="exp-company">Penn State University</div>
+          </div>
+          <span class="exp-date">Oct – Dec 2025</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Researched how 3D printing technology is reshaping the Israel-Hamas conflict, producing a multi-page paper and formal presentation</li>
+          <li>Analyzed the technical, ethical, policy, and escalation dimensions of emerging weapons technology in modern warfare</li>
+          <li>Demonstrated ability to synthesize complex technical topics into clear, structured analysis for academic audiences</li>
+        </ul>
+      </div>
+
+      <div class="exp-card gold-border">
+        <span class="exp-type type-project">Volunteer</span>
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Penn State THON — Rules &amp; Regulations Committee</div>
+            <div class="exp-company">Penn State University</div>
+          </div>
+          <span class="exp-date">Oct 2025 – Feb 2026</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Enforced event policies and monitored assigned areas across a large-scale multi-day event for thousands of attendees</li>
+          <li>Collaborated with team members in real time to address compliance issues and maintain safe, organized operations</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <span class="exp-type type-work">Work</span>
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Line Cook</div>
+            <div class="exp-company">Faccia Luna Pizzeria</div>
+          </div>
+          <span class="exp-date">Jan 2026 – Present</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Managed multiple simultaneous tasks in a fast-paced environment while maintaining accuracy and consistency</li>
+          <li>Communicated continuously with kitchen staff to coordinate priorities and ticket timing</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <span class="exp-type type-work">Work</span>
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Lead Food Runner / Line Cook</div>
+            <div class="exp-company">The Stables Kitchen and Beer Garden</div>
+          </div>
+          <span class="exp-date">May 2024 – Aug 2025</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Promoted from food runner to line cook based on performance and reliability</li>
+          <li>Trained and supervised food runners while managing cross-team communication between front and back of house</li>
+          <li>Managed inventory and maintained efficiency during staffing shortages while working 40–50 hour weeks alongside coursework</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <span class="exp-type type-work">Work</span>
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Operations Manager</div>
+            <div class="exp-company">Chocolate Moonshine Co. — King of Prussia Mall</div>
+          </div>
+          <span class="exp-date">Nov 2021 – Jan 2023</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Managed daily operations of a seasonal retail location including sales tracking, inventory, and supply management</li>
+          <li>Reported on shop performance metrics and used customer service skills to drive sales</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-grid">
+      <a href="mailto:Cooperwaters96@gmail.com" class="contact-card">
+        <div class="contact-icon">✉️</div>
+        <h3>Email</h3>
+        <p>Cooperwaters96@gmail.com</p>
+      </a>
+      <a href="https://www.linkedin.com/in/cooperjwaters" target="_blank" class="contact-card">
+        <div class="contact-icon">💼</div>
+        <h3>LinkedIn</h3>
+        <p>linkedin.com/in/cooperjwaters</p>
+      </a>
+      <a href="Waters_Resume.pdf" download class="contact-card">
+        <div class="contact-icon">📄</div>
+        <h3>Resume</h3>
+        <p>Download PDF</p>
+      </a>
+      <a href="tel:4848891060" class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h3>Phone</h3>
+        <p>(484) 889-1060</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Cooper J. Waters &mdash; Downingtown, PA &mdash; Penn State University &bull; Class of 2027</p>
+</footer>
+
+</body>
+</html>
